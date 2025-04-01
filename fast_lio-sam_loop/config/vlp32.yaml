@@ -1,0 +1,91 @@
+common:
+    lid_topic:  "/velodyne_points"
+    imu_topic:  "/imu/data"
+    time_sync_en: false         # ONLY turn on when external time synchronization is really not possible
+    time_offset_lidar_to_imu: 0.0 # Time offset between lidar and IMU calibrated by other algorithms, e.g. LI-Init (can be found in README).
+                                  # This param will take effect no matter what time_sync_en is. So if the time offset is not known exactly, please set as 0.0
+frame:
+    odometry_frame: "odom"
+    map_frame:      "map"
+
+preprocess:
+    lidar_type: 2                # 1 for Livox serials LiDAR, 2 for Velodyne LiDAR, 3 for ouster LiDAR, 
+    scan_line: 32
+    scan_rate: 10                # only need to be set for velodyne, unit: Hz,
+    timestamp_unit: 2            # the unit of time/t field in the PointCloud2 rostopic: 0-second, 1-milisecond, 2-microsecond, 3-nanosecond.
+    blind: 0.5
+
+mapping:
+    acc_cov: 0.1
+    gyr_cov: 0.1
+    b_acc_cov: 0.0001
+    b_gyr_cov: 0.0001
+    fov_degree:    180
+    det_range:     100.0
+    extrinsic_est_en:  false      # true: enable the online estimation of IMU-LiDAR extrinsic,
+    extrinsic_T: [ 0, 0, 0.28]
+    extrinsic_R: [ 1, 0, 0, 
+                   0, 1, 0, 
+                   0, 0, 1]
+publish:
+    path_en:  true
+    scan_publish_en:  true       # false: close all the point cloud output
+    dense_publish_en: false       # false: low down the points number in a global-frame point clouds scan.
+    scan_bodyframe_pub_en: true  # true: output the point cloud scans in IMU-body-frame
+    scan_lidarframe_pub_en: true  # true: output the point cloud scans in lidar-frame
+
+    # ------ important for loop closing ------
+    keyframe_pub_en: true         # true: 进行关键帧检测，同时发布lidar下的点云和位姿。这里开了才能进行回环哦
+
+pcd_save:
+    pcd_save_en: false
+    interval: -1                 # how many LiDAR frames saved in each pcd file; 
+                                 # -1 : all frames will be saved in ONE pcd file, may lead to memory crash when having too much frames.
+
+time_save:
+    timestamp_save_en:  false    # true: 存储雷达时间戳
+
+#------------------------------------------------------ loop closing ---------------------------------------------
+
+odometry_mode:                                  
+    correct_fe_en: false                          # whether update ikd-tree map after loop ? !!!!!!!!!!!!!!!!!!!!!!
+
+keyframe:
+    interval_th: 0.15       # unit second
+    trans_th: 0.1           # unit meters
+    rot_rad_th: 0.0872      # unit radian
+
+loop:
+    loop_en: true
+    loop_frequency: 1.0     # unit hz
+    sparse_raw_point_cloud_en: true              # 可以更好的控制运行内存，使系统运行更久
+
+    #  ------ icp matching ------ 
+    history_kf_search_radius: 25.0               # unit meters, key frame that is within n meters from current pose will be considerd for loop closure
+    history_kf_search_time_diff: 25.0            # unit seconds, key frame that is n seconds older will be considered for loop closure
+    history_kf_search_num: 25                    # number of hostory key frames will be fused into a submap for loop closure
+    history_kf_fitness_score: 0.4                # icp threshold, the smaller the better alignment
+
+    #  ------ ikd-tree map rebuild ------ 
+    surrounding_kf_search_radius: 30.0           # unit meters, find history kf surround current kf
+    surrounding_kf_density: 2.0                  # unit meters, sparse history kf
+    mapping_surf_leaf_size: 0.4                  # unit meters, control ikd-tree resolution, loop icp matching resolution 
+    
+#------------------------------------------------------ global map visualization ---------------------------------------------
+
+visualization:
+    global_map_visualization_search_radius: 1000.0    # unit meters, global map visualization radius
+    global_map_visualization_pose_density:  10.0      # unit meters, global map visualization keyframe density
+    global_map_visualization_leaf_size:     0.5       # unit meters, global map visualization cloud density
+
+#------------------------------------------------------ other ---------------------------------------------
+
+service:
+    save_directory: "/home/mtcjyb/Documents/"
+    global_map_server_leaf_size: 0.4
+
+
+
+
+
+

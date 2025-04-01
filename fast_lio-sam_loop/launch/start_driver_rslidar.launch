@@ -1,0 +1,12 @@
+<launch>
+  <!-- Launch file for RS-16 LiDAR -->
+
+    <arg name="rviz" default="true" />
+    <node pkg="my_minimal_nodes" type="my_minimal_nodes_node" name="my_minimal_nodes" output="screen" />
+
+  <node pkg="rslidar_sdk" name="rslidar_sdk_node" type="rslidar_sdk_node" output="screen">
+    <param name="config_path" value=""/>
+  </node>
+  <!-- rviz -->
+  <!--node pkg="rviz" name="rviz" type="rviz" args="-d $(find rslidar_sdk)/rviz/rviz.rviz" /-->
+</launch>
