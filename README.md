@@ -45,7 +45,7 @@ Clone the repository and catkin_make:
 
 ## 3. Run
 
-### 3.1. Download Dataset ([UrbanNAV](https://github.com/IPNL-POLYU/UrbanNavDataset): 
+### 3.1. Download Dataset ([UrbanNAV](https://github.com/IPNL-POLYU/UrbanNavDataset)): 
 
 rosbag play XXX.bag
 
