@@ -9,6 +9,8 @@ Sparse_raw_point_cloud_en is set to true, which allows for downsampling of keyfr
 **Important Notes**: 
   - **A Bug is fixed (2025-04-02)**: we fixed bug in the reconstruct() function provided by [FAST_LIO_LC](https://github.com/yanliang-wang/FAST_LIO_LC), [FAST_LIO_SAM](https://github.com/kahowang/FAST_LIO_SAM). Now, both correct_fe_en == true or correct_fe_en == false,  the system can run stably. Howerver, when correct_fe_en == true, reconstruct a ikd-tree map usually need more time for odometry, and the odometry pose will jump. So, we recommend correct_fe_en == false.
 
+![Run on Public UrbanNav Dataset](https://github.com/Hero941215/fast_lio-sam_loop/blob/main/2025-04-02%2013-31-24.jpg)
+
 ## 1. Prerequisites
 ### 1.0 **gcc** and **g++**
 
