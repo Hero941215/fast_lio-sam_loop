@@ -1,5 +1,5 @@
 # fast_lio-sam_loop
-**Fast lio with loop closing function. isam2 is used for pose graph optimization. The loop and odometry are integrated into a unified file. Supports full operation on long sequence datasets, such as urbanNAV dataset ([FAST_LIO_SAM](https://github.com/kahowang/FAST_LIO_SAM) will crash in about 10 minutes).**
+**Fast-lio with loop closing function. isam2 is used for pose graph optimization. The loop and odometry are integrated into a unified file. Supports full operation on long sequence datasets, such as urbanNAV dataset ([FAST_LIO_SAM](https://github.com/kahowang/FAST_LIO_SAM) will crash in about 10 minutes).**
 
 ## 0. Features
 In the config file, if keyframe_pub_en and loop_en are true, the loop-closing function is enabled. Then, when correct_fe_en is "true", it means that the front-end ikd-tree will reconstruct when a loop occurs, and "false" means it will not reconstruct. For "false" case, drawing on the LOAM concept, the transform from the map coordinate system to the odom coordinate system is maintained and used to correct the FAST-LIO pose to the map system, providing initial pose graph. Therefore, Fast-lio2's ikd tree does not require reconstruction, ensuring that the front-end can always run efficiently.
