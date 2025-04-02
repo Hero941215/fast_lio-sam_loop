@@ -7,8 +7,7 @@ In the config file, if keyframe_pub_en and loop_en are true, the loop-closing fu
 Sparse_raw_point_cloud_en is set to true, which allows for downsampling of keyframes stored globally and controlling the running memory to make the system run longer.
 
 **Important Notes**: 
-  - **A Bug still exists**: we use the reconstruct() function provided by [FAST_LIO_LC](https://github.com/yanliang-wang/FAST_LIO_LC). When correct_fe_en == true, this function will be used for rebuilding the ikd-tree in the lio. Sometimes, 
-the system will crash. When correct_fe_en == false, the problem does not exist.
+  - **A Bug is fixed (2025-04-02)**: we fixed bug in the reconstruct() function provided by [FAST_LIO_LC](https://github.com/yanliang-wang/FAST_LIO_LC). Now, both correct_fe_en == true or correct_fe_en == false,  the system can run stably. Howerver, when correct_fe_en == true, reconstruct a ikd-tree map usually need more time for odometry, and the odometry pose will jump. So, we recommend correct_fe_en == false.
 
 ## 1. Prerequisites
 ### 1.0 **gcc** and **g++**
