@@ -1357,15 +1357,20 @@ void KD_TREE<PointType>::flatten(KD_TREE_NODE * root, PointVector &Storage, dele
  */
 template <typename PointType>
 void KD_TREE<PointType>::reconstruct(PointVector &point_cloud){
+    stop_thread();
     Delete_Storage_Disabled = true;
     delete_tree_nodes(&Root_Node);
     PointVector ().swap(PCL_Storage);
     Rebuild_Logger.clear();           
 
     if(Root_Node == nullptr){
+        // std::cout << "1!" << std::endl; 
         Build(point_cloud);
+        // std::cout << "1-finish!" << std::endl; 
     } else {
+        // std::cout << "2!" << std::endl; 
         Add_Points(point_cloud, true);
+        // std::cout << "2-finish!" << std::endl; 
     }
 }
 
