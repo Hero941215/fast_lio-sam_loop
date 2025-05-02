@@ -54,6 +54,10 @@ rosbag play XXX.bag
 
 roslaunch fast_lio_sam_loop mapping_velodyne.launch
 
+### 3.3. Save map:
+
+rosservice call /service/save_map
+
 ## 4. Acknowledgments
 
 Thanks for LOAM(J. Zhang and S. Singh. LOAM: Lidar Odometry and Mapping in Real-time), [FAST-LIO2](https://github.com/hku-mars/FAST_LIO)，[FAST_LIO_SAM](https://github.com/kahowang/FAST_LIO_SAM), [FAST_LIO_LC](https://github.com/yanliang-wang/FAST_LIO_LC).
